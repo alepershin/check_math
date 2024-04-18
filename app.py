@@ -21,6 +21,7 @@ output_recognized_characters = st.checkbox("Выводить распознан�
 show_found_degrees = st.checkbox("Показать найденные степени")
 show_outlines = st.checkbox("Показать контуры найденных символов")
 show_rows = st.checkbox("Выводить результаты распознавания блоков")
+dont_cut = st.checkbox("Не пытаться делить контуры")
 
 filename = st.file_uploader('Загрузите картинку с решением', type=['jpg'])
 
@@ -366,7 +367,7 @@ if not filename is None:
 
         if w < 2 * h:
             result, v = recognition(image, 1)
-            if result == 'F' or result == 'D' or result == 'U' or result == '8' or result == 'a' or result == 'G' or result == 'd':
+            if dont_cut == False and (result == 'F' or result == 'D' or result == 'U' or result == '8' or result == 'a' or result == 'G' or result == 'd'):
                 img1 = crop_black_borders(cropped[y:y + h, x:x + w // 2 + 2])
                 result1, v1 = recognition(img1, 1)
                 img2 = crop_black_borders(cropped[y:y + h, x + w // 2:x + w])
