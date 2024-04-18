@@ -424,7 +424,7 @@ if not filename is None:
         for j in rez:
             if i == j:
                 continue
-            if (i[0] < j[0] < i[2] and i[0] < j[2] < i[2] and i[1] < j[1] < i[3] and i[1] < j[3] < i[3]):
+            if (i[0] <= j[0] <= i[2] and i[0] <= j[2] <= i[2] and i[1] <= j[1] <= i[3] and i[1] <= j[3] <= i[3]):
                 del_elem.append(j)
 
     for i in del_elem:
