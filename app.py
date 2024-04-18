@@ -367,7 +367,7 @@ if not filename is None:
 
         if w < 2 * h:
             result, v = recognition(image, 1)
-            if dont_cut == False and (result == 'F' or result == 'D' or result == 'U' or result == '8' or result == 'a' or result == 'G' or result == 'd'):
+            if dont_cut != True and (result == 'F' or result == 'D' or result == 'U' or result == '8' or result == 'a' or result == 'G' or result == 'd'):
                 img1 = crop_black_borders(cropped[y:y + h, x:x + w // 2 + 2])
                 result1, v1 = recognition(img1, 1)
                 img2 = crop_black_borders(cropped[y:y + h, x + w // 2:x + w])
