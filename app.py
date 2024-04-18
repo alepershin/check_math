@@ -553,7 +553,6 @@ if not filename is None:
                     pass
         else:
             s = s.replace("3x", "3 * x")
-
             s = s.replace("* *  =", "=")
 
             left_part = ""
