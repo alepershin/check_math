@@ -386,6 +386,18 @@ if not filename is None:
                 cv2.rectangle(im, (x, y), (x + w, y + h), (255, 200, 255), 1)
 
     del_elem = []
+    for i in rez:
+        for j in rez:
+            if i == j:
+                continue
+            if i[0] <= j[0] <= j[2] <= i[2] and i[1] <= j[1] <= j[3] <= i[3]:
+                del_elem.append(j)
+
+    for i in del_elem:
+        if i in rez:
+            rez.remove(i)
+
+    del_elem = []
     for i in range(len(rez)):
         if rez[i][4] != '-':
             continue
@@ -414,18 +426,6 @@ if not filename is None:
             rez[i][2] = max(rez[i][2], rez[index][2])
             rez[i][3] = max(rez[i][3], rez[index][3])
             del_elem.append(rez[index])
-
-    for i in del_elem:
-        if i in rez:
-            rez.remove(i)
-
-    del_elem = []
-    for i in rez:
-        for j in rez:
-            if i == j:
-                continue
-            if i[0] <= j[0] <= j[2] <= i[2] and i[1] <= j[1] <= j[3] <= i[3]:
-                del_elem.append(j)
 
     for i in del_elem:
         if i in rez:
