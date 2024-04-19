@@ -15,7 +15,7 @@ new_width = 1400                                         # Ширина обра
 
 st.title('Проверка письменных работ по математике')
 
-THRESHOLD_VALUE = st.number_input("Введите порог яркости", min_value=111, max_value=200, step=1)
+THRESHOLD_VALUE = st.number_input("Введите порог яркости", value=153, min_value=111, max_value=200, step=1)
 
 output_recognized_characters = st.checkbox("Выводить распознанные символы")
 show_found_degrees = st.checkbox("Показать найденные степени")
