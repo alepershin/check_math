@@ -290,8 +290,8 @@ def block_recognition(block):
   s = s.replace("* *  * *  * * -", "-")
   s = s.replace("* *  * * -", "-")
   s = s.replace("* *  =", "=")
-  # s = s.replace("01", "0,")
-
+  if s[-2:] == "01":
+      s = s[:-1]
   if s[-5:] == "* * (":
     s = s[:-5]
 
@@ -446,12 +446,24 @@ if not filename is None:
                 continue
             if j[0] > i[2] and j[0] < 2 * i[2] - i[0] and j[3] < (i[1] + i[3]) / 2 and j[3] > i[1] - (i[3] - i[1]) / 2:
                 elem_degrees.append([i, j])
-                i[4] += " * * " + j[4]
-                i[1] = j[1]
-                i[2] = j[2]
-                del_elem.append(j)
-                if show_found_degrees:
-                    cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (255, 255, 0), 1)
+
+    for i in elem_degrees:
+        for j in elem_degrees:
+            if i == j:
+                continue
+            if i[1] == j[1]:
+                if i[0][0] < j[0][0]:
+                    elem_degrees.remove(i)
+                else:
+                    elem_degrees.remove(j)
+
+    for i in elem_degrees:
+        i[0][4] += " * * " + i[1][4]
+        i[0][1] = i[1][1]
+        i[0][2] = i[1][2]
+        del_elem.append(i[1])
+        if show_found_degrees:
+            cv2.rectangle(im, (i[0][0], i[0][1]), (i[0][2], i[0][3]), (255, 255, 0), 1)
 
     for i in del_elem:
         if i in rez:
