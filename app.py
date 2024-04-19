@@ -22,6 +22,7 @@ show_found_degrees = st.checkbox("Показать найденные степе
 show_outlines = st.checkbox("Показать контуры найденных символов")
 show_rows = st.checkbox("Выводить результаты распознавания блоков")
 dont_cut = st.checkbox("Не пытаться делить контуры")
+show_eq = st.checkbox("Показать найденные знаки равенства")
 
 filename = st.file_uploader('Загрузите картинку с решением', type=['jpg'])
 
@@ -406,7 +407,7 @@ if not filename is None:
         if index > -1 and rez[index][4] == '-':
             # cv2.rectangle(im, (rez[i][0], rez[i][1]), (rez[i][2], rez[i][3]), (100, 255, 225), 1)
 
-            if index_symbol_bottom(index) == i:
+            if index_symbol_bottom(index) == i and max(rez[i][2], rez[index][2]) - min(rez[i][0], rez[index][0]) > max(rez[i][3], rez[index][3]) - min(rez[i][1], rez[index][1]):
                 rez[i][4] = '='
                 rez[i][0] = min(rez[i][0], rez[index][0])
                 rez[i][1] = min(rez[i][1], rez[index][1])
@@ -414,7 +415,8 @@ if not filename is None:
                 rez[i][3] = max(rez[i][3], rez[index][3])
                 rez[index][4] = '='
                 del_elem.append(rez[index])
-                # cv2.rectangle(im, (rez[i][0], rez[i][1]), (rez[i][2], rez[i][3]), (200, 255, 225), 1)
+                if show_eq:
+                    cv2.rectangle(im, (rez[i][0], rez[i][1]), (rez[i][2], rez[i][3]), (255, 255, 100), 1)
 
     for i in range(len(rez)):
         if rez[i][4] != "=":
@@ -434,6 +436,7 @@ if not filename is None:
 
     # Поиск степеней
     del_elem = []
+    elem_degrees = []
     for i in rez:
         for j in rez:
             if i == j or i[4] == '-' or j[4] == '-' or i[4] == 'Answer' or j[4] == 'Answer' or i[
@@ -442,13 +445,13 @@ if not filename is None:
                 4] == '(' and j[3] > i[3]) or (i[4] == ')' and i[3] < j[3]) or (j[4] == ')' and j[3] < i[3]):
                 continue
             if j[0] > i[2] and j[0] < 2 * i[2] - i[0] and j[3] < (i[1] + i[3]) / 2 and j[3] > i[1] - (i[3] - i[1]) / 2:
+                elem_degrees.append([i, j])
                 i[4] += " * * " + j[4]
                 i[1] = j[1]
                 i[2] = j[2]
                 del_elem.append(j)
                 if show_found_degrees:
                     cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (255, 255, 0), 1)
-                #st.image(im)
 
     for i in del_elem:
         if i in rez:
