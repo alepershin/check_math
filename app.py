@@ -582,13 +582,13 @@ if not filename is None:
                         print(f'a = 1, b = {b}, c = {c}')
                     s = str(r)
                     if s != answer and answer != "":
-                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (255, 0, 0), 1)
+                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (255, 255, 0), 1)
                         cv2.putText(im, str(s), (i[0], i[1]), cv2.FONT_HERSHEY_SIMPLEX, fontScale, (255, 0, 0), 2)
                     else:
                         if s != "" and answer == "":
                             answer = s
-                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (200, 255, 200), 1)
-                        cv2.putText(im, str(s), (i[0], i[1]), cv2.FONT_HERSHEY_SIMPLEX, fontScale, (255, 0, 0), 2)
+                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (0, 255, 200), 1)
+                        cv2.putText(im, str(s), (i[0], i[1]), cv2.FONT_HERSHEY_SIMPLEX, fontScale, (0, 255, 0), 2)
                 except Exception as e:
                     # print(f'Не удалось решить уравнение: {s}')
                     if show_rows:
