@@ -551,7 +551,7 @@ if not filename is None:
                     value = eval(expression)
                     s = f"x1 = {value}"
                     if value != x1 and value != x2:
-                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (0, 0, 255), 2)
+                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (255, 0, 0), 2)
                 except Exception as e:
                     pass
         elif s[0:2] == 'x2':
@@ -563,7 +563,7 @@ if not filename is None:
                     value = eval(expression)
                     s = f"x2 = {value}"
                     if value != x1 and value != x2:
-                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (0, 0, 255), 2)
+                        cv2.rectangle(im, (i[0], i[1]), (i[2], i[3]), (255, 0, 0), 2)
                 except Exception as e:
                     pass
         else:
